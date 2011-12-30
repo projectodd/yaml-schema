@@ -1,0 +1,4 @@
+jobs:
+  Job1:
+    job: Jobs::MyJobClass
+    cron: '0 */5 * * * ?'

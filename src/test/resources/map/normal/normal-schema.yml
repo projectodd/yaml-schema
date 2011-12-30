@@ -1,0 +1,8 @@
++alice: 
+  type: enum
+  values: [1.8, 1.9]
+-bob:
+  type: map
+  +one: string
+  +two: string
+  -three: string

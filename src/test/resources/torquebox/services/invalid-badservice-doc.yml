@@ -1,0 +1,5 @@
+services:
+  Service1:
+    service: 
+      beerbaron:
+        Services::Service2

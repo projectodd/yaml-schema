@@ -1,0 +1,9 @@
+jobs:
+  Job1:
+    job: Jobs::MyJobClass
+    cron: '0 */5 * * * ?'
+    description: This is the description of my job
+    singleton: true
+    config:
+      aaa: 123
+      bbb: 456

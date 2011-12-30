@@ -1,0 +1,13 @@
+services:
+  Service1: Services::Service1
+  Service2:
+    service: Services::Service2
+  Service3:
+    service: Services::Service3
+    singleton: true
+  Service4:
+    service: Services::Service3
+    singleton: true 
+    config:
+      aaa: 111
+      bbb: 222 

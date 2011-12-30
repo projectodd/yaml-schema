@@ -1,0 +1,13 @@
++alice: 
+  type: enum
+  values: [1.8, 1.9]
+-bob:
+  arbitrary: true
+  value-types:
+    map:
+      aaa:
+      bbb:
+      ccc:
+    enum:
+      values: [hello, goodbye]
+  

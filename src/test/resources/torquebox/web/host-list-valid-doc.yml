@@ -1,0 +1,5 @@
+web:
+  host:
+    - foo.com
+      bar.com
+      baz.com

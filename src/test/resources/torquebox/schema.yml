@@ -1,0 +1,106 @@
+-application:
+  -root: string
+  -env: string
+  -RAILS_ROOT: string
+  -RAILS_ENV: string
+-auth:
+  arbitrary: true
+  value-types:
+    map:
+      domain: string
+-environment:
+  arbitrary: true
+-jobs:
+  type: map
+  arbitrary: true
+  value-types:
+    map:
+      job: string
+      cron: string
+      -description: string
+      -singleton: boolean
+      -config:
+        type: map
+        arbitrary: true
+-messaging:
+  type: map
+  arbitrary: true
+  value-types:
+    string:      
+    map:
+      -concurrency: natural
+      -filter: string
+      -durable: boolean
+      -config:
+        type: map
+        arbitrary: true
+-pooling:
+  type: map
+  -web: &pooling-type
+    type:
+      enum:
+        values: [shared, global]
+      map:
+        -min: integer
+        -max: integer
+  -jobs: *pooling-type
+  -messaging: *pooling-type
+  -services: *pooling-type
+  -stomplets: *pooling-type
+-queues:
+  arbitrary: true
+  value-types:
+    string:
+      required: false
+    map:
+      -durable: boolean
+-ruby:
+  type: map
+  -version:
+    type: enum
+    values: [1.8, 1.9]
+  -compile_mode:
+    type: enum
+    values: [jit, force, off]
+  -debug: boolean
+  -interactive: boolean
+  -profile_api: boolean
+-services:
+  arbitrary: true
+  value-types:
+    string:
+    map:
+      service: string
+      -singleton: boolean
+      -config:
+        arbitrary: true
+-stomp:
+  -host: string
+  stomplets:
+    arbitrary: true
+    value-types:
+      map:
+       route: string
+       class: string
+       -config:
+         arbitrary: true
+    
+-topics:
+  arbitrary: true
+  value-types:
+    string:
+      required: false
+    map:
+      -durable: boolean
+-web:
+  -rackup:
+  -host:
+    type:
+      - string
+      - list:
+        value-types: string
+  -context:
+  -static:
+  -session-timeout:
+    type: string
+    regex: ^[0-9]+(ms|s|m|h)

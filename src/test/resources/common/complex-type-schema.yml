@@ -1,0 +1,7 @@
+foo:
+  type:
+    string:
+    map:
+      +one: string
+      -two: string
+      -three: string  

@@ -1,0 +1,12 @@
+pooling:
+  web:
+    min: 1
+    max: 3
+  jobs:
+    min: 10
+    max: 43
+  services: shared
+  stomplets:
+    max: 5
+  messaging:
+    max: abc

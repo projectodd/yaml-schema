@@ -1,0 +1,6 @@
+foo:
+  type: int
++bar:
+  type: integer
+-baz:
+  type: int

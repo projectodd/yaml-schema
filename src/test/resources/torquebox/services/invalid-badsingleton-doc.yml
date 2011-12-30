@@ -1,0 +1,5 @@
+services:
+  Service1:
+    service: Services::Service3
+    singleton: mrplow
+

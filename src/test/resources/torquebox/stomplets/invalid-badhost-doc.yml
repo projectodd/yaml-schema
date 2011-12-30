@@ -1,0 +1,16 @@
+stomp:
+  host:
+    abc: foo.com
+  stomplets:
+    Stomplet2:
+      route: /queues/foo
+    Stomplet3:
+      route: /queues/foo
+      class: Stomplets::Stomplet3
+      hummus: chickpea
+    Stomplet4:
+      route: /topics/bar
+      class: Stomplets::Stomplet4
+      config:
+        aaa: 42
+        bbb: eleven

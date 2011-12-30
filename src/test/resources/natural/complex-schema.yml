@@ -1,0 +1,6 @@
+foo:
+  type: natural
++bar:
+  type: natural
+-baz:
+  type: natural

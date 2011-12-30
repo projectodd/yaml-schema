@@ -1,0 +1,5 @@
+web:
+  context: /foo
+  rackup: config.ru
+  session-timeout: 10m
+  static: /public

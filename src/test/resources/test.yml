@@ -1,0 +1,29 @@
+
+foo: abc
+aaa: atreee
+bar: 123
+baz: kjaskjskg
+ddd: fofo
+
+root:
+  type: sequence
+  first: integer
+  second: int
+  third: string
+  fourth: str
+  foo:
+    dependency: /first
+      type: required | mutex | 
+    type: string
+    required: no
+  bar: 
+    type: enum
+    required: yes
+    values: []
+  baz:
+    metadata:
+      type: sequence
+      required: yes
+    foo:
+    bar:
+    baz:

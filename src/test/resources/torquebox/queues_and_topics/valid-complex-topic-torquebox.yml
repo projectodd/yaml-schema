@@ -1,0 +1,5 @@
+topics:
+  /topic/foo:
+    durable: yes
+  /topic/bar:
+    durable: false

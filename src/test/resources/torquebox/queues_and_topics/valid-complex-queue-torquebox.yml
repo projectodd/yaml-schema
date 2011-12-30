@@ -1,0 +1,5 @@
+queues:
+  /queue/foo:
+    durable: yes
+  /queue/bar:
+    durable: false

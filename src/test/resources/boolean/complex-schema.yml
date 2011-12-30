@@ -1,0 +1,6 @@
+foo:
+  type: boolean
++bar:
+  type: boolean
+-baz:
+  type: boolean

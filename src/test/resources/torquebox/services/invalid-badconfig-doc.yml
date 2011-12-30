@@ -1,0 +1,6 @@
+stomp:
+  stomplets:
+    Stomplet:
+      route: /topics/bar
+      class: Stomplets::Stomplet4
+      config: pants

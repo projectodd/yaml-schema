@@ -1,0 +1,2 @@
+jobs:
+  Job1: Jobs::MyJobClass

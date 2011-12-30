@@ -1,0 +1,5 @@
+foo: string
+bar: string
+baz:
+  type: string
+  required: no
