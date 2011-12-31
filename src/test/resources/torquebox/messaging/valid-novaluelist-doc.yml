@@ -1,0 +1,22 @@
+messaging:
+  default_message_encoding: text
+  /topics/simple: SimpleHandler
+  /topics/popular:
+    - NoValueHandler
+    - Handler:
+        concurrency: 5
+    - Observer: 
+        filter: "x > 18"
+        config:
+          x: ex
+          y: why
+    - Processor
+  /queues/students:
+    VerySimpleAnalyzer:
+    YouthMonitor:
+      filter: "y < 18"
+      config:
+        h: ache
+        i: eye
+    LookAndFeel:
+      concurrency: 12

@@ -1,0 +1,8 @@
+messaging:
+  /topics/simple: SimpleHandler
+  /queues/bar:
+    FooMonitor:
+      config:
+        abc: 123
+        def: 456
+  /queues/baz: AnotherHandler

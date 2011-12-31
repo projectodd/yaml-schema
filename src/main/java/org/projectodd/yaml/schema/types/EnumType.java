@@ -36,7 +36,7 @@ public class EnumType extends AbstractBaseType {
 
     @Override
     public void validateType(Object value) throws SchemaException {
-        log.debug( "Validating value " + value +" against enum values " + values );
+        log.debug( "Validating value " + value + " against enum values " + values );
         boolean found = false;
         for (int i = 0; i < values.size() && !found; i++) {
             if (values.get( i ).equals( value )) {
@@ -44,7 +44,7 @@ public class EnumType extends AbstractBaseType {
             }
         }
         if (!found) {
-            throw new SchemaException( value + " is not a valid value for this enumeration." );
+            throw new SchemaException( value + " is not a valid value for the enumeration on field " + getName() );
         }
 
     }

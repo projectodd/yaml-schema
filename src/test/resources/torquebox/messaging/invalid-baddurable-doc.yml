@@ -1,0 +1,12 @@
+messaging:
+  default_message_encoding: marshal_base64
+  /queues/students:
+    VerySimpleAnalyzer:
+    YouthMonitor:
+      filter: "y < 18"
+      config:
+        h: ache
+        i: eye
+      durable: fish
+    LookAndFeel:
+      concurrency: 12

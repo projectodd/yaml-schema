@@ -1,0 +1,6 @@
+ruby:
+  version: 1.8
+  compile_mode: jit
+  debug: false
+  interactive: true
+  profile_api: off

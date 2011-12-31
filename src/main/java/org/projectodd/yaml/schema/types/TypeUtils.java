@@ -19,6 +19,7 @@ public class TypeUtils {
             }
         }
         if (!foundValid) {
+            log.debug( "Value " + yamlData + " failed validation for all possible types." );
             throw new SchemaException( yamlData + " is not a valid value for field " + fieldName );
         }
     }

@@ -1,0 +1,12 @@
+messaging:
+  default_message_encoding: marshal
+  /topics/simple: SimpleHandler
+  /topics/popular:
+    - Handler:
+        concurrency: ham
+    - Observer: &defaults
+        filter: "x > 18"
+        config:
+          x: ex
+          y: why
+    - Processor

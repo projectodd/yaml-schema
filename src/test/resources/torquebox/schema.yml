@@ -25,28 +25,48 @@
 -messaging:
   type: map
   arbitrary: true
+  -default_message_encoding:
+    type: enum
+    values: [marshal, marshal_base64, json, text]
   value-types:
-    string:      
+    string:
     map:
-      -concurrency: natural
-      -filter: string
-      -durable: boolean
-      -config:
-        type: map
-        arbitrary: true
+      arbitrary: true
+      value-types:
+        string:
+          required: false
+        map:
+          -concurrency: natural
+          -filter: string
+          -durable: boolean
+          -config:
+            type: map
+            arbitrary: true
+    list:
+      value-types:
+        string:
+        map: 
+          arbitrary: true
+          value-types:
+            map:
+              -concurrency: natural
+              -filter: string
+              -durable: boolean
+              -config:
+                arbitrary: true
 -pooling:
   type: map
-  -web: &pooling-type
+  -web: &pooling-config-type
     type:
       enum:
         values: [shared, global]
       map:
         -min: integer
         -max: integer
-  -jobs: *pooling-type
-  -messaging: *pooling-type
-  -services: *pooling-type
-  -stomplets: *pooling-type
+  -jobs: *pooling-config-type
+  -messaging: *pooling-config-type
+  -services: *pooling-config-type
+  -stomplets: *pooling-config-type
 -queues:
   arbitrary: true
   value-types:
@@ -84,7 +104,6 @@
        class: string
        -config:
          arbitrary: true
-    
 -topics:
   arbitrary: true
   value-types:

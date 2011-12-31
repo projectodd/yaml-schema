@@ -1,0 +1,13 @@
+messaging:
+  default_message_encoding: json
+  /topics/simple: SimpleHandler
+  /topics/popular:
+    - Handler:
+        concurrency: 1
+    - Observer: &defaults
+        filter: 
+          gravy: biscuits
+        config:
+          x: ex
+          y: why
+    - Processor

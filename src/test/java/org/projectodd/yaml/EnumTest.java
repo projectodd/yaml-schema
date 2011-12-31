@@ -55,7 +55,7 @@ public class EnumTest extends BaseTest {
             schema.validate( loadResource( "invalid-doc.yml" ) );
             fail( "Error message about schema expected." );
         } catch (SchemaException e) {
-            assertEquals( e.getMessage(), "1.2 is not a valid value for this enumeration." );
+            assertEquals( e.getMessage(), "1.2 is not a valid value for the enumeration on field foo" );
         }
     }
 

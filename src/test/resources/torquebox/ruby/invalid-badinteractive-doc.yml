@@ -1,0 +1,6 @@
+ruby:
+  version: 1.8
+  compile_mode: force
+  profile_api: false
+  debug: true
+  interactive: ham
