@@ -1,2 +1,4 @@
+application:
+  root: /abc/def
 jobs:
   Job1: Jobs::MyJobClass

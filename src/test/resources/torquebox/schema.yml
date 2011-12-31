@@ -15,6 +15,7 @@
 -environment:
   arbitrary: true
 -jobs:
+  dependencies: /application/root
   type: map
   arbitrary: true
   value-types:
@@ -59,6 +60,7 @@
               -config:
                 arbitrary: true
 -pooling:
+  dependencies: /application/root
   type: map
   -web: &pooling-config-type
     type:
@@ -79,6 +81,7 @@
     map:
       -durable: boolean
 -ruby:
+  dependencies: /application/root
   type: map
   -version:
     type: enum
@@ -90,6 +93,7 @@
   -interactive: boolean
   -profile_api: boolean
 -services:
+  dependencies: /application/root
   arbitrary: true
   value-types:
     string:
@@ -99,6 +103,7 @@
       -config:
         arbitrary: true
 -stomp:
+  dependencies: /application/root
   -host: string
   stomplets:
     arbitrary: true
