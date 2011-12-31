@@ -138,7 +138,7 @@ public class TypeFactory {
                 }
             }
             else {
-                throw new RuntimeException( "Schema types must extend org.projectodd.yaml.schema.types.BaseType." );
+                throw new RuntimeException( "Schema types must extend " + AbstractBaseType.class.getName() );
             }
         }
         this.loadRequirements();

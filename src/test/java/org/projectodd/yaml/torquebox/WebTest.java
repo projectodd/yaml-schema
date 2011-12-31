@@ -12,6 +12,11 @@ public class WebTest extends AbstractBaseTorqueBoxTest {
     public void testGeneralValid() throws SchemaException {
         schema.validate( loadResource( "web/general-valid-doc.yml" ) );
     }
+    
+    @Test
+    public void testValidMsecSessionTimeout() throws SchemaException {
+        schema.validate( loadResource( "web/valid-msecsessiontimeout-doc.yml" ) );
+    }
 
     @Test
     public void testHostString() throws SchemaException {

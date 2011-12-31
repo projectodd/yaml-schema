@@ -3,6 +3,7 @@ package org.projectodd.yaml.schema.types;
 import java.util.List;
 import java.util.Map;
 
+import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 
 @SchemaType({ "sequence", "seq" })
@@ -25,7 +26,7 @@ public class SequenceType extends AbstractBaseType {
     }
 
     @Override
-    public void validateType(Object value) throws SchemaException {
+    public void validateType(Schema schema, Object value) throws SchemaException {
         // TODO Auto-generated method stub
 
     }

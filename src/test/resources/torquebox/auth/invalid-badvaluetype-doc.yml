@@ -1,0 +1,12 @@
+auth:
+  defaults:
+    domain: poochie.com
+  dolph:
+    - yellow
+    - blue
+    - red
+  kearney:
+    domain: ham.com
+    credentials:
+      user: kzzyzwicz
+      password: embiggening

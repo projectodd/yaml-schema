@@ -1,0 +1,10 @@
+auth:
+  defaults:
+    domain: poochie.com
+  dolph:
+    springfield: elementary
+  kearney:
+    domain: ham.com
+    credentials:
+      user: kzzyzwicz
+      password: embiggening

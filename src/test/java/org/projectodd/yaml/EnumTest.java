@@ -11,7 +11,7 @@ import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.EnumType;
 import org.projectodd.yaml.schema.types.MapType;
 
-public class EnumTest extends BaseTest {
+public class EnumTest extends AbstractBaseTest {
 
     @Test
     public void testBasic() throws SchemaException {

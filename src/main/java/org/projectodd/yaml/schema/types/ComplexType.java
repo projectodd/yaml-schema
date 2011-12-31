@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,8 @@ public class ComplexType extends AbstractBaseType {
     }
 
     @Override
-    public void validateType(Object value) throws SchemaException {
-        TypeUtils.ensureOneTypeValid( getName(), types, value );
+    public void validateType(Schema schema, Object value) throws SchemaException {
+        TypeUtils.ensureOneTypeValid( schema, getName(), types, value );
     }
 
     @SuppressWarnings("unchecked")

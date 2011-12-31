@@ -1,0 +1,10 @@
+auth:
+  defaults:
+    domain: 
+      turkey: football
+  dolph:
+  kearney:
+    domain: ham.com
+    credentials:
+      user: kzzyzwicz
+      password: embiggening

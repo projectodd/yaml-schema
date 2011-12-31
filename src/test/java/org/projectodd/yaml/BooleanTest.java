@@ -12,7 +12,7 @@ import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.BooleanType;
 import org.projectodd.yaml.schema.types.MapType;
 
-public class BooleanTest extends BaseTest {
+public class BooleanTest extends AbstractBaseTest {
 
     @Test
     public void testBasic() throws SchemaException {
@@ -59,6 +59,17 @@ public class BooleanTest extends BaseTest {
         } catch (SchemaException e) {
             assertEquals( "Schema for field foo does not accept arglebargle of type class " +
             		"java.lang.String as input for schema type boolean", e.getMessage() );
+        }
+    }
+    
+    @Test
+    public void testInvalidNullValue() throws Exception {
+        try {
+            Schema schema = new Schema( loadResource( "complex-schema.yml" ) );
+            schema.validate( loadResource( "invalid-nullvalue-doc.yml" ) );
+            fail( "Invalid doc should have failed." );
+        } catch (SchemaException e) {
+            assertEquals( "Boolean field baz cannot be null.", e.getMessage() );
         }
     }
 

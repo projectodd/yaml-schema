@@ -7,14 +7,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.Map;
 
 import org.junit.Test;
-import org.projectodd.yaml.BaseTest;
+import org.projectodd.yaml.AbstractBaseTest;
 import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.EnumType;
 import org.projectodd.yaml.schema.types.MapType;
 import org.projectodd.yaml.schema.types.StringType;
 
-public class NormalMapTest extends BaseTest {
+public class NormalMapTest extends AbstractBaseTest {
 
     @Test
     public void testNormal() throws Exception {

@@ -2,7 +2,7 @@ package org.projectodd.yaml;
 
 import java.io.InputStream;
 
-public abstract class BaseTest {
+public abstract class AbstractBaseTest {
 
     public abstract String getType();
 

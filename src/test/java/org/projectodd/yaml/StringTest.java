@@ -11,7 +11,7 @@ import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.MapType;
 import org.projectodd.yaml.schema.types.StringType;
 
-public class StringTest extends BaseTest {
+public class StringTest extends AbstractBaseTest {
 
     @Test
     public void testSimple() throws SchemaException {

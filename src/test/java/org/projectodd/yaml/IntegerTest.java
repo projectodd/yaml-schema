@@ -12,7 +12,7 @@ import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.IntegerType;
 import org.projectodd.yaml.schema.types.MapType;
 
-public class IntegerTest extends BaseTest {
+public class IntegerTest extends AbstractBaseTest {
 
     @Test
     public void testBasic() throws SchemaException {
@@ -58,7 +58,18 @@ public class IntegerTest extends BaseTest {
             fail( "Invalid doc should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Schema for field foo does not accept 123.45 of type class " +
-            		"java.lang.Double as input for schema type integer", e.getMessage() );
+                    "java.lang.Double as input for schema type integer", e.getMessage() );
+        }
+    }
+
+    @Test
+    public void testInvalidNullValue() throws Exception {
+        try {
+            Schema schema = new Schema( loadResource( "complex-schema.yml" ) );
+            schema.validate( loadResource( "invalid-nullvalue-doc.yml" ) );
+            fail( "Invalid doc should have failed." );
+        } catch (SchemaException e) {
+            assertEquals( "Integer field baz cannot be null.", e.getMessage() );
         }
     }
 

@@ -1,0 +1,9 @@
+auth:
+  defaults:
+    domain: jimbo.org
+  dolph:
+  kearney:
+    domain: ham.com
+    credentials:
+      user: kzzyzwicz
+      password: embiggening

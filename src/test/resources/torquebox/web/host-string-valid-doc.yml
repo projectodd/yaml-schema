@@ -1,2 +1,4 @@
+application:
+  root: /foo/bar
 web:
   host: foo.com

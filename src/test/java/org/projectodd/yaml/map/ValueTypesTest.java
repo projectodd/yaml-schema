@@ -10,13 +10,13 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.projectodd.yaml.BaseTest;
+import org.projectodd.yaml.AbstractBaseTest;
 import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.MapType;
 
-public class ValueTypesTest extends BaseTest {
+public class ValueTypesTest extends AbstractBaseTest {
 
     private Schema schema;
 

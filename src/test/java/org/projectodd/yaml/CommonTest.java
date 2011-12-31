@@ -10,7 +10,7 @@ import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.ComplexType;
 import org.projectodd.yaml.schema.types.MapType;
 
-public class CommonTest extends BaseTest {
+public class CommonTest extends AbstractBaseTest {
 
     @Test
     public void testComplexTypeString() throws Exception {

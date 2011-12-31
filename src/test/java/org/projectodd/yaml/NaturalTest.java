@@ -12,7 +12,7 @@ import org.projectodd.yaml.schema.types.AbstractBaseType;
 import org.projectodd.yaml.schema.types.NaturalType;
 import org.projectodd.yaml.schema.types.MapType;
 
-public class NaturalTest extends BaseTest {
+public class NaturalTest extends AbstractBaseTest {
 
     @Test
     public void testBasic() throws SchemaException {
@@ -58,6 +58,17 @@ public class NaturalTest extends BaseTest {
             fail( "Invalid doc should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Natural field foo must have a value >= 1.", e.getMessage() );
+        }
+    }
+    
+    @Test
+    public void testInvalidNullValue() throws Exception {
+        try {
+            Schema schema = new Schema( loadResource( "complex-schema.yml" ) );
+            schema.validate( loadResource( "invalid-nullvalue-doc.yml" ) );
+            fail( "Invalid doc should have failed." );
+        } catch (SchemaException e) {
+            assertEquals( "Natural field baz cannot be null.", e.getMessage() );
         }
     }
 

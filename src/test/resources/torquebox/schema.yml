@@ -6,8 +6,12 @@
 -auth:
   arbitrary: true
   value-types:
+    string:
+      required: false
     map:
-      domain: string
+      -domain: string
+      -credentials:
+        arbitrary: true
 -environment:
   arbitrary: true
 -jobs:
@@ -112,6 +116,7 @@
     map:
       -durable: boolean
 -web:
+  dependencies: /application/root
   -rackup:
   -host:
     type:

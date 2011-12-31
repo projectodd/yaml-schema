@@ -1,3 +1,5 @@
+application:
+  root: /foo/bar
 web:
   rackup: foo.ru
   session-timeout: 42glibs

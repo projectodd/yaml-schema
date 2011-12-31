@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.projectodd.yaml.BaseTest;
+import org.projectodd.yaml.AbstractBaseTest;
 import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 
-public class QueuesTopicsTest extends BaseTest {
+public class QueuesTopicsTest extends AbstractBaseTest {
 
     @Test
     public void testInvalidKey() throws Exception {

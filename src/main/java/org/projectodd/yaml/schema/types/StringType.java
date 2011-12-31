@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 
 @SchemaType({ "str", "string" })
@@ -34,7 +35,7 @@ public class StringType extends AbstractBaseType {
     }
 
     @Override
-    public void validateType(Object value) throws SchemaException {
+    public void validateType(Schema schema, Object value) throws SchemaException {
         if (value instanceof Collection || value instanceof Map) {
             throw new SchemaException( "String field " + getName() + " only accepts scalar values." );
         }

@@ -1,11 +1,11 @@
 package org.projectodd.yaml.torquebox;
 
 import org.junit.Before;
-import org.projectodd.yaml.BaseTest;
+import org.projectodd.yaml.AbstractBaseTest;
 import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 
-public abstract class AbstractBaseTorqueBoxTest extends BaseTest {
+public abstract class AbstractBaseTorqueBoxTest extends AbstractBaseTest {
 
     protected Schema schema;
 
