@@ -6,15 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.Dependency;
 import org.projectodd.yaml.schema.metadata.DependencyIndexer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractBaseType {
 
-    private static Logger log = LoggerFactory.getLogger( AbstractBaseType.class );
+    private static Logger log = Logger.getLogger( AbstractBaseType.class );
 
     private static final String OPTIONAL_PREFIX = "-";
 
@@ -32,8 +31,15 @@ public abstract class AbstractBaseType {
         return name;
     }
 
+    protected boolean acceptsConfiguration(Object yamlData) throws SchemaException {
+        return true;
+    }
+
+    protected boolean acceptsValue(Object yamlData) throws SchemaException {
+        return true;
+    }
+
     AbstractBaseType initialize(String name, Object yamlData) throws SchemaException {
-        TypeFactory tf = TypeFactory.instance();
         String fieldName = name;
         if (fieldName.startsWith( REQUIRED_PREFIX )) {
             fieldName = fieldName.substring( 1 );
@@ -44,9 +50,13 @@ public abstract class AbstractBaseType {
             this.required = false;
         }
         this.name = fieldName;
-
-        validateRequirements( tf.getRequirements( "build", this.getClass() ), yamlData );
-        validateRequirements( tf.getRequirements( this.getClass() ), yamlData );
+        if (!acceptsConfiguration( yamlData )) {
+            throw new SchemaException( "Schema for field " + name + " does not accept "
+                    + yamlData
+                    + (yamlData != null ? " of type " + yamlData.getClass() : "")
+                    + " as configuration input for type "
+                    + TypeFactory.instance().getSchemaTypeId( this.getClass() ) );
+        }
 
         if (yamlData instanceof Map) {
             Map<String, Object> yamlMap = asTypedMap( yamlData );
@@ -55,7 +65,7 @@ public abstract class AbstractBaseType {
             }
             initializeDependencies( yamlMap );
         }
-        log.debug( "initialized " + (required ? "required" : "optional") + " field " + this.name );
+        log.debugf( "initialized %s field %s.", (required ? "required" : "optional"), this.name );
         return this;
     }
 
@@ -77,7 +87,7 @@ public abstract class AbstractBaseType {
             yamlMap.remove( "dependencies" );
         }
         else {
-            log.trace( "No dependencies for field " + getName() );
+            log.tracef( "No dependencies for field %s.", getName() );
         }
     }
 
@@ -90,14 +100,18 @@ public abstract class AbstractBaseType {
     }
 
     public void validate(DependencyIndexer index, Object yamlData) throws SchemaException {
-        log.debug( "Validating type " + this.getClass() + " using value " + yamlData );
+        log.debugf( "Validating type %s using value %s.", this.getClass(), yamlData );
         if (yamlData == null && required) {
             throw new SchemaException( "Field " + name + " was required but is not present." );
         }
 
-        TypeFactory tf = TypeFactory.instance();
-        validateRequirements( tf.getRequirements( "validateType", this.getClass() ), yamlData );
-        validateRequirements( tf.getRequirements( this.getClass() ), yamlData );
+        if (!acceptsValue( yamlData )) {
+            throw new SchemaException( "Schema for field " + name + " does not accept "
+                    + yamlData
+                    + (yamlData != null ? " of type " + yamlData.getClass() : "")
+                    + " as input for type "
+                    + TypeFactory.instance().getSchemaTypeId( this.getClass() ) );
+        }
         validateDependencies( index );
         validateType( index, yamlData );
     }
@@ -106,23 +120,6 @@ public abstract class AbstractBaseType {
         if (indexer.isVerifyingDependencies()) {
             for (Dependency dep : dependencies) {
                 dep.validate( indexer );
-            }
-        }
-    }
-
-    private void validateRequirements(Class<?>[] reqs, Object yamlData) throws SchemaException {
-        if (reqs != null) {
-            boolean matched = false;
-            for (int i = 0; matched == false && i < reqs.length; i++) {
-                matched = (yamlData == null || reqs[i].isInstance( yamlData ));
-            }
-            if (!matched) {
-                throw new SchemaException( "Schema for field " + name + " does not accept "
-                        + yamlData
-                        + (yamlData != null ? " of type " + yamlData.getClass() : "")
-                        + " as input for "
-                        + "schema type "
-                        + TypeFactory.instance().getSchemaTypeId( this.getClass() ) );
             }
         }
     }

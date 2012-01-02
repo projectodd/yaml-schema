@@ -1,23 +1,13 @@
 package org.projectodd.yaml.schema.types;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
+import org.jboss.logging.Logger;
 import org.projectodd.yaml.SchemaException;
-import org.reflections.Reflections;
-import org.reflections.scanners.MethodAnnotationsScanner;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TypeFactory {
-
-    private Reflections reflections;
 
     private TypeFactory() {
         loadRegisteredTypes();
@@ -80,16 +70,6 @@ public class TypeFactory {
         }
     }
 
-    public Class<?>[] getRequirements(Class<?> clazz) {
-        MethodKey key = new MethodKey( ANY_METHOD, clazz.getName() );
-        return requirements.get( key );
-    }
-
-    public Class<?>[] getRequirements(String methodName, Class<?> clazz) {
-        MethodKey key = new MethodKey( methodName, clazz.getName() );
-        return requirements.get( key );
-    }
-
     public static TypeFactory instance() {
         if (_instance == null) {
             _instance = new TypeFactory();
@@ -122,102 +102,27 @@ public class TypeFactory {
         return typeId;
     }
 
-    @SuppressWarnings("unchecked")
+    private void addType(Class<? extends AbstractBaseType> clazz, String... aliases) {
+        for (String alias : aliases) {
+            types.put( alias, clazz );
+        }
+    }
+
     private void loadRegisteredTypes() {
-        reflections = new Reflections( new ConfigurationBuilder()
-                .setUrls( ClasspathHelper.forPackage( TypeFactory.class.getPackage().getName() ) )
-                .setScanners( new TypeAnnotationsScanner(),
-                        new MethodAnnotationsScanner() ) );
-        Set<Class<?>> schemaTypes = reflections.getTypesAnnotatedWith( SchemaType.class );
-        for (Class<?> type : schemaTypes) {
-            log.debug( "Registering type " + type );
-            if (AbstractBaseType.class.isAssignableFrom( type )) {
-                SchemaType typeData = type.getAnnotation( SchemaType.class );
-                for (String key : typeData.value()) {
-                    types.put( key, (Class<AbstractBaseType>) type );
-                }
-            }
-            else {
-                throw new RuntimeException( "Schema types must extend " + AbstractBaseType.class.getName() );
-            }
-        }
-        this.loadRequirements();
-
+        addType( StringType.class, "string", "str" );
+        addType( IntegerType.class, "integer", "int" );
+        addType( NaturalType.class, "natural" );
+        addType( BooleanType.class, "boolean", "bool" );
+        addType( EnumType.class, "enum" );
+        addType( ListType.class, "list" );
+        addType( MapType.class, "map" );
+        addType( ComplexType.class, "complex" );
     }
 
-    private void loadRequirements() {
-        Set<Method> methods = reflections.getMethodsAnnotatedWith( Requires.class );
-        for (Method method : methods) {
-            MethodKey mk = new MethodKey( method.getName(), method.getDeclaringClass().getName() );
-            log.debug( "Adding requirements method key " + mk );
-            Requires req = method.getAnnotation( Requires.class );
-            requirements.put( mk, req.value() );
-        }
-        Set<Class<?>> types = reflections.getTypesAnnotatedWith( Requires.class );
-        for (Class<?> type : types) {
-            Requires req = type.getAnnotation( Requires.class );
-            MethodKey mk = new MethodKey( ANY_METHOD, type.getName() );
-            log.debug( "Adding requirements method key " + mk );
-            requirements.put( mk, req.value() );
-        }
-    }
+    private Map<String, Class<? extends AbstractBaseType>> types = new HashMap<String, Class<? extends AbstractBaseType>>( 50 );
 
-    private Map<String, Class<AbstractBaseType>> types = new HashMap<String, Class<AbstractBaseType>>( 50 );
-
-    private Map<MethodKey, Class<?>[]> requirements = new HashMap<MethodKey, Class<?>[]>( 50 );
-
-    private static final String ANY_METHOD = "*";
-
-    private static Logger log = LoggerFactory.getLogger( TypeFactory.class );
+    private static Logger log = Logger.getLogger( TypeFactory.class );
 
     private static TypeFactory _instance = null;
-
-    private static class MethodKey {
-
-        private String methodName;
-        private String className;
-
-        public MethodKey(String methodName, String className) {
-            this.methodName = methodName;
-            this.className = className;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((className == null) ? 0 : className.hashCode());
-            result = prime * result + ((methodName == null) ? 0 : methodName.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            MethodKey other = (MethodKey) obj;
-            if (className == null) {
-                if (other.className != null)
-                    return false;
-            } else if (!className.equals( other.className ))
-                return false;
-            if (methodName == null) {
-                if (other.methodName != null)
-                    return false;
-            } else if (!methodName.equals( other.methodName ))
-                return false;
-            return true;
-        }
-
-        @Override
-        public String toString() {
-            return "MethodKey[" + this.methodName + "," + this.className + "]";
-        }
-
-    }
 
 }

@@ -58,7 +58,7 @@ public class IntegerTest extends AbstractBaseTest {
             fail( "Invalid doc should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Schema for field foo does not accept 123.45 of type class " +
-                    "java.lang.Double as input for schema type integer", e.getMessage() );
+                    "java.lang.Double as input for type integer", e.getMessage() );
         }
     }
 
@@ -69,7 +69,9 @@ public class IntegerTest extends AbstractBaseTest {
             schema.validate( loadResource( "invalid-nullvalue-doc.yml" ) );
             fail( "Invalid doc should have failed." );
         } catch (SchemaException e) {
-            assertEquals( "Integer field baz cannot be null.", e.getMessage() );
+            assertEquals( "Schema for field baz does not accept null as " +
+                    "input for type integer",
+                    e.getMessage() );
         }
     }
 

@@ -5,17 +5,24 @@ import java.util.Map;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.DependencyIndexer;
 
-@SchemaType({ "int", "integer" })
 public class IntegerType extends AbstractBaseType {
 
     @Override
-    @Requires({ Map.class, String.class })
+    protected boolean acceptsConfiguration(Object yamlData) throws SchemaException {
+        return yamlData instanceof Map || yamlData instanceof String;
+    }
+    
+    @Override
+    protected boolean acceptsValue(Object yamlData) {
+        return yamlData instanceof Integer;
+    }    
+    
+    @Override
     AbstractBaseType build(Object yamlData) throws SchemaException {
         return this;
     }
 
     @Override
-    @Requires(Integer.class)
     public void validateType(DependencyIndexer indexer, Object value) throws SchemaException {
         if (value == null) {
             throw new SchemaException( "Integer field " + getName() + " cannot be null." );

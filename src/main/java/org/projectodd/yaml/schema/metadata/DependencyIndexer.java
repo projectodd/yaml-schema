@@ -4,9 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
 import org.projectodd.yaml.SchemaException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DependencyIndexer {
 
@@ -86,6 +85,6 @@ public class DependencyIndexer {
         this.verifyingDependencies = verifyingDependencies;
     }
 
-    private static final Logger log = LoggerFactory.getLogger( DependencyIndexer.class );
+    private static final Logger log = Logger.getLogger( DependencyIndexer.class );
 
 }

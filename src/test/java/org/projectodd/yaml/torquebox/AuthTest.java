@@ -35,7 +35,7 @@ public class AuthTest extends AbstractBaseTorqueBoxTest {
             schema.validate( loadResource( "auth/invalid-badvaluetype-doc.yml" ) );
         } catch (Exception e) {
             assertEquals( "Schema for field auth does not accept [yellow, blue, red] of type class " +
-            		"java.util.ArrayList as input for schema type map", 
+            		"java.util.ArrayList as input for type map", 
             		e.getCause().getMessage() );
         }
     }

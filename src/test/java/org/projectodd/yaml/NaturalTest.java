@@ -68,7 +68,8 @@ public class NaturalTest extends AbstractBaseTest {
             schema.validate( loadResource( "invalid-nullvalue-doc.yml" ) );
             fail( "Invalid doc should have failed." );
         } catch (SchemaException e) {
-            assertEquals( "Natural field baz cannot be null.", e.getMessage() );
+            assertEquals( "Schema for field baz does not accept null as input for type natural",
+                    e.getMessage() );
         }
     }
 

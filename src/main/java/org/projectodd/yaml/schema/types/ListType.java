@@ -6,12 +6,20 @@ import java.util.Map;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.DependencyIndexer;
 
-@SchemaType("list")
 public class ListType extends AbstractCollectionType {
 
+    @Override
+    protected boolean acceptsConfiguration(Object yamlData) throws SchemaException {
+        return yamlData instanceof Map;
+    }
+    
+    @Override
+    protected boolean acceptsValue(Object yamlData) {
+        return yamlData instanceof List;
+    }    
+    
     @SuppressWarnings("unchecked")
     @Override
-    @Requires(Map.class)
     AbstractBaseType build(Object yamlData) throws SchemaException {
         Map<String, Object> data = (Map<String, Object>) yamlData;
         if (data.containsKey( "value-types" )) {
@@ -22,7 +30,6 @@ public class ListType extends AbstractCollectionType {
     }
 
     @Override
-    @Requires(List.class)
     public void validateType(DependencyIndexer indexer, Object value) throws SchemaException {
         List<AbstractBaseType> valueTypes = this.getValueTypes();
         if (valueTypes != null) {

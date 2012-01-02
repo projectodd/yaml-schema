@@ -15,7 +15,7 @@ public class ServicesTest extends AbstractBaseTorqueBoxTest {
             fail( "Should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Schema for field singleton does not accept mrplow of " +
-                    "type class java.lang.String as input for schema type boolean",
+                    "type class java.lang.String as input for type boolean",
                     e.getCause().getMessage() );
         }
     }
@@ -27,7 +27,7 @@ public class ServicesTest extends AbstractBaseTorqueBoxTest {
             fail( "Should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Schema for field config does not accept pants of " +
-                    "type class java.lang.String as input for schema type map",
+                    "type class java.lang.String as input for type map",
                     e.getCause().getMessage() );
         }
     }

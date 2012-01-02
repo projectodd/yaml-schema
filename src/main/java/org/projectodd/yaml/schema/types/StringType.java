@@ -8,7 +8,6 @@ import java.util.regex.PatternSyntaxException;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.DependencyIndexer;
 
-@SchemaType({ "str", "string" })
 public class StringType extends AbstractBaseType {
 
     private Pattern regex;

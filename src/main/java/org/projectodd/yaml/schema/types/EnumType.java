@@ -3,19 +3,21 @@ package org.projectodd.yaml.schema.types;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.DependencyIndexer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-@SchemaType("enum")
 public class EnumType extends AbstractBaseType {
 
     private List<Object> values;
 
+    @Override
+    protected boolean acceptsConfiguration(Object yamlData) throws SchemaException {
+        return yamlData instanceof Map;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
-    @Requires(Map.class)
     AbstractBaseType build(Object yamlData) throws SchemaException {
         List<Object> values = null;
         if (yamlData instanceof Map) {
@@ -37,10 +39,12 @@ public class EnumType extends AbstractBaseType {
 
     @Override
     public void validateType(DependencyIndexer indexer, Object value) throws SchemaException {
-        log.debug( "Validating value " + value + " against enum values " + values );
+        log.debugf( "Validating value %s against enum values %s.", value, values );
         boolean found = false;
         for (int i = 0; i < values.size() && !found; i++) {
-            if (values.get( i ).equals( value )) {
+            Object enumValue = values.get( i );
+            if (enumValue.equals( value ) ||
+                    (value != null && enumValue.toString().equals( value.toString() ))) {
                 found = true;
             }
         }
@@ -50,6 +54,6 @@ public class EnumType extends AbstractBaseType {
 
     }
 
-    private static Logger log = LoggerFactory.getLogger( EnumType.class );
+    private static Logger log = Logger.getLogger( EnumType.class );
 
 }

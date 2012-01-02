@@ -4,22 +4,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.DependencyIndexer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-@SchemaType("map")
-@Requires(Map.class)
 public class MapType extends AbstractCollectionType {
 
     private boolean allowingArbitraryKeys = false;
 
     private Map<String, AbstractBaseType> children = new HashMap<String, AbstractBaseType>( 10 );
 
+    @Override
+    protected boolean acceptsConfiguration(Object yamlData) throws SchemaException {
+        return yamlData instanceof Map;
+    }
+    
+    @Override
+    protected boolean acceptsValue(Object yamlData) {
+        return yamlData instanceof Map;
+    }    
+    
     @SuppressWarnings("unchecked")
     @Override
-    @Requires(Map.class)
     MapType build(Object yamlData) throws SchemaException {
         Map<String, Object> data = (Map<String, Object>) yamlData;
         if (data.containsKey( "arbitrary" )) {
@@ -69,7 +75,7 @@ public class MapType extends AbstractCollectionType {
                         throw new SchemaException( "Unrecognized field: " + key );
                     }
                     else {
-                        log.debug( "Map for field " + getName() + " allows arbitrary keys." );
+                        log.debugf( "Map for field %s allows arbitrary keys.", getName() );
                         if (valueTypes != null) {
                             validateValueTypes( indexer, key, yamlData );
                         }
@@ -99,6 +105,6 @@ public class MapType extends AbstractCollectionType {
         }
     }
 
-    private static final Logger log = LoggerFactory.getLogger( MapType.class );
+    private static final Logger log = Logger.getLogger( MapType.class );
 
 }

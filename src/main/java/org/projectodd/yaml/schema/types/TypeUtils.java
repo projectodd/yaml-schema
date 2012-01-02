@@ -3,10 +3,9 @@ package org.projectodd.yaml.schema.types;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.DependencyIndexer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TypeUtils {
 
@@ -25,15 +24,15 @@ public class TypeUtils {
                 types.get( i ).validate( indexer, yamlData );
                 foundValid = true;
             } catch (SchemaException e) {
-                log.trace( "Type " + types.get( i ) + " was not valid; trying others." );
+                log.tracef( "Type %s was not valid; trying others.", types.get( i ) );
             }
         }
         if (!foundValid) {
-            log.debug( "Value " + yamlData + " failed validation for all possible types." );
+            log.errorf( "Value %s failed validation for all possible types.", yamlData );
             throw new SchemaException( yamlData + " is not a valid value for field " + fieldName );
         }
     }
 
-    private static Logger log = LoggerFactory.getLogger( TypeUtils.class );
+    private static Logger log = Logger.getLogger( TypeUtils.class );
 
 }

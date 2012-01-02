@@ -30,7 +30,7 @@ public class JobTest extends AbstractBaseTorqueBoxTest {
             fail( "Should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Schema for field jobs does not accept Jobs::MyJobClass of " +
-                    "type class java.lang.String as input for schema type map",
+                    "type class java.lang.String as input for type map",
                     e.getCause().getMessage() );
         }
     }

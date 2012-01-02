@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.logging.Logger;
 import org.projectodd.yaml.SchemaException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public abstract class AbstractCollectionType extends AbstractBaseType {
 
@@ -24,7 +23,7 @@ public abstract class AbstractCollectionType extends AbstractBaseType {
         else {
             Map<String, Object> yamlMap = (Map<String, Object>) yamlData;
             for (String typeId : yamlMap.keySet()) {
-                log.debug( "Adding value type: " + typeId + " for field " + getName() );
+                log.debugf( "Adding value type: %s for field %s.", typeId, getName() );
                 valueTypes.add( TypeFactory.instance().buildType( getName(), typeId, yamlMap.get( typeId ) ) );
             }
         }
@@ -34,6 +33,6 @@ public abstract class AbstractCollectionType extends AbstractBaseType {
         return valueTypes;
     }
 
-    private static final Logger log = LoggerFactory.getLogger( AbstractCollectionType.class );
+    private static final Logger log = Logger.getLogger( AbstractCollectionType.class );
 
 }

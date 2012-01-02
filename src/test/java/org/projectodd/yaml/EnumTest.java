@@ -1,6 +1,7 @@
 package org.projectodd.yaml;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -18,11 +19,20 @@ public class EnumTest extends AbstractBaseTest {
         Schema schema = new Schema( loadResource( "basic-schema.yml" ) );
         MapType root = (MapType) schema.getRoot();
         Map<String, AbstractBaseType> children = root.getChildren();
-        assertEquals( 1, children.size() );
+        assertEquals( 2, children.size() );
         EnumType foo = (EnumType) children.get( "foo" );
         assertTrue( foo.isRequired() );
         assertEquals( "foo", foo.getName() );
+        EnumType bar = (EnumType) children.get( "bar" );
+        assertFalse( bar.isRequired() );
+        assertEquals( "foo", foo.getName() );
         schema.validate( loadResource( "valid-doc.yml" ) );
+    }
+    
+    @Test
+    public void testValidStringValue() throws SchemaException {
+        Schema schema = new Schema( loadResource( "basic-schema.yml" ) );
+        schema.validate( loadResource( "valid-stringvalue-doc.yml" ) );
     }
 
     @Test
@@ -46,12 +56,6 @@ public class EnumTest extends AbstractBaseTest {
     public void testBadDocValue() {
         try {
             Schema schema = new Schema( loadResource( "basic-schema.yml" ) );
-            MapType root = (MapType) schema.getRoot();
-            Map<String, AbstractBaseType> children = root.getChildren();
-            assertEquals( 1, children.size() );
-            EnumType foo = (EnumType) children.get( "foo" );
-            assertTrue( foo.isRequired() );
-            assertEquals( "foo", foo.getName() );
             schema.validate( loadResource( "invalid-doc.yml" ) );
             fail( "Error message about schema expected." );
         } catch (SchemaException e) {

@@ -58,7 +58,7 @@ public class BooleanTest extends AbstractBaseTest {
             fail( "Invalid doc should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Schema for field foo does not accept arglebargle of type class " +
-            		"java.lang.String as input for schema type boolean", e.getMessage() );
+            		"java.lang.String as input for type boolean", e.getMessage() );
         }
     }
     
@@ -69,7 +69,8 @@ public class BooleanTest extends AbstractBaseTest {
             schema.validate( loadResource( "invalid-nullvalue-doc.yml" ) );
             fail( "Invalid doc should have failed." );
         } catch (SchemaException e) {
-            assertEquals( "Boolean field baz cannot be null.", e.getMessage() );
+            assertEquals( "Schema for field baz does not accept null as input for " +
+            		"type boolean", e.getMessage() );
         }
     }
 

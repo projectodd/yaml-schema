@@ -55,7 +55,7 @@ public class MessagingTest extends AbstractBaseTorqueBoxTest {
             assertEquals( "Schema for field messaging does not accept {VerySimpleAnalyzer=null, " +
                     "YouthMonitor={filter=y < 18, config={h=ache, i=eye}, durable=fish}, " +
                     "LookAndFeel={concurrency=12}} of type class java.util.LinkedHashMap as " +
-                    "input for schema type list", e.getCause().getMessage() );
+                    "input for type list", e.getCause().getMessage() );
         }
     }
 

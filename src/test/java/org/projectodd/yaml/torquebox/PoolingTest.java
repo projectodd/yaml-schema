@@ -18,7 +18,7 @@ public class PoolingTest extends AbstractBaseTorqueBoxTest {
             schema.validate( loadResource( "pooling/invalid-badenum-simple-doc.yml" ) );
         } catch (Exception e) {
             assertEquals( "Schema for field pooling does not accept egot of type class java.lang.String " +
-            		"as input for schema type map", 
+            		"as input for type map", 
             		e.getCause().getMessage() );
         }
     }
@@ -38,7 +38,7 @@ public class PoolingTest extends AbstractBaseTorqueBoxTest {
             schema.validate( loadResource( "pooling/invalid-bounds-simple-doc.yml" ) );
         } catch (Exception e) {
             assertEquals( "Schema for field max does not accept abc of type class java.lang.String as " +
-            		"input for schema type integer", 
+            		"input for type integer", 
             		e.getCause().getMessage() );
         }
     }
