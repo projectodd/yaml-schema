@@ -1,0 +1,6 @@
+application:
+  root: /abc/120d
+tasks: 
+  Backgroundable:
+    concurrency: 2
+  SampleTask:

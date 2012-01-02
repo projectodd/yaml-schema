@@ -1,0 +1,5 @@
+application:
+  root: /abc/120d
+tasks:
+  TaskOne:
+    concurrency: ham

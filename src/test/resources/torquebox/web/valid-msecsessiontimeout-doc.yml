@@ -5,3 +5,4 @@ web:
   rackup: config.ru
   session-timeout: 10ms
   static: /public
+  buttered: toast
