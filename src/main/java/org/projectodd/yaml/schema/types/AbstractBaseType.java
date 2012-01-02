@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 import org.projectodd.yaml.schema.metadata.Dependency;
+import org.projectodd.yaml.schema.metadata.DependencyIndexer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,7 +89,7 @@ public abstract class AbstractBaseType {
         this.required = required;
     }
 
-    public void validate(Schema schema, Object yamlData) throws SchemaException {
+    public void validate(DependencyIndexer index, Object yamlData) throws SchemaException {
         log.debug( "Validating type " + this.getClass() + " using value " + yamlData );
         if (yamlData == null && required) {
             throw new SchemaException( "Field " + name + " was required but is not present." );
@@ -98,13 +98,15 @@ public abstract class AbstractBaseType {
         TypeFactory tf = TypeFactory.instance();
         validateRequirements( tf.getRequirements( "validateType", this.getClass() ), yamlData );
         validateRequirements( tf.getRequirements( this.getClass() ), yamlData );
-        validateDependencies( schema );
-        validateType( schema, yamlData );
+        validateDependencies( index );
+        validateType( index, yamlData );
     }
 
-    private void validateDependencies(Schema schema) throws SchemaException {
-        for (Dependency dep : dependencies) {
-            dep.validate( schema );
+    private void validateDependencies(DependencyIndexer indexer) throws SchemaException {
+        if (indexer.isVerifyingDependencies()) {
+            for (Dependency dep : dependencies) {
+                dep.validate( indexer );
+            }
         }
     }
 
@@ -125,6 +127,6 @@ public abstract class AbstractBaseType {
         }
     }
 
-    public abstract void validateType(Schema schema, Object value) throws SchemaException;
+    public abstract void validateType(DependencyIndexer indexer, Object value) throws SchemaException;
 
 }

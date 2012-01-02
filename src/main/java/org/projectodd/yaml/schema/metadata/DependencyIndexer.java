@@ -13,6 +13,8 @@ public class DependencyIndexer {
     private Map<String, String> nodes = new LinkedHashMap<String, String>( 20 );
 
     private boolean ready = false;
+    
+    private boolean verifyingDependencies;
 
     public boolean isNodeDefined(String node) throws SchemaException {
         if (!ready) {
@@ -74,6 +76,14 @@ public class DependencyIndexer {
 
     public boolean isReady() {
         return ready;
+    }
+
+    public boolean isVerifyingDependencies() {
+        return verifyingDependencies;
+    }
+
+    public void setVerifyingDependencies(boolean verifyingDependencies) {
+        this.verifyingDependencies = verifyingDependencies;
     }
 
     private static final Logger log = LoggerFactory.getLogger( DependencyIndexer.class );

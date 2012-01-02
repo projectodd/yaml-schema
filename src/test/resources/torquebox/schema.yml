@@ -61,18 +61,13 @@
                 arbitrary: true
 -pooling:
   dependencies: /application/root
-  type: map
-  -web: &pooling-config-type
-    type:
-      enum:
-        values: [shared, global]
-      map:
-        -min: integer
-        -max: integer
-  -jobs: *pooling-config-type
-  -messaging: *pooling-config-type
-  -services: *pooling-config-type
-  -stomplets: *pooling-config-type
+  arbitrary: true
+  value-types:
+    enum:
+      values: [shared, global]
+    map:
+      -min: integer
+      -max: integer
 -queues:
   arbitrary: true
   value-types:
@@ -97,8 +92,10 @@
   arbitrary: true
   value-types:
     string:
+      required: false
     map:
-      service: string
+      arbitrary: true
+      -service: string
       -singleton: boolean
       -config:
         arbitrary: true
@@ -132,4 +129,4 @@
   -static:
   -session-timeout:
     type: string
-    regex: ^[0-9]+(ms|s|m|h)
+    regex: ^[0-9]+\s*(ms|s|m|h)\s*

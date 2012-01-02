@@ -5,3 +5,6 @@ pooling:
     min: 1
     max: 3
   messaging: shared
+  pants:
+    min: 14
+    max: 43

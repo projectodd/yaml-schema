@@ -47,9 +47,14 @@ public class WebTest extends AbstractBaseTorqueBoxTest {
             fail( "Should have failed." );
         } catch (SchemaException e) {
             assertEquals( "Value 42glibs for field session-timeout does not match regular " +
-                    "expression ^[0-9]+(ms|s|m|h)",
+                    "expression ^[0-9]+\\s*(ms|s|m|h)\\s*",
                     e.getMessage() );
         }
+    }
+    
+    @Test
+    public void testSessionTimeoutSpaces() throws Exception {
+        schema.validate( loadResource( "web/session-timeout-spaces-doc.yml" ) );
     }
 
 }

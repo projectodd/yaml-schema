@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
+import org.projectodd.yaml.schema.metadata.DependencyIndexer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,7 +51,7 @@ public class MapType extends AbstractCollectionType {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void validateType(Schema schema, Object value) throws SchemaException {
+    public void validateType(DependencyIndexer indexer, Object value) throws SchemaException {
         Map<String, Object> yamlData = (Map<String, Object>) value;
         List<AbstractBaseType> valueTypes = this.getValueTypes();
 
@@ -71,24 +71,24 @@ public class MapType extends AbstractCollectionType {
                     else {
                         log.debug( "Map for field " + getName() + " allows arbitrary keys." );
                         if (valueTypes != null) {
-                            validateValueTypes( schema, key, yamlData );
+                            validateValueTypes( indexer, key, yamlData );
                         }
                     }
                 }
                 else
-                    type.validate( schema, yamlData.get( key ) );
+                    type.validate( indexer, yamlData.get( key ) );
             }
         }
     }
 
-    private void validateValueTypes(Schema schema, String key, Map<String, Object> yamlData) throws SchemaException {
+    private void validateValueTypes(DependencyIndexer indexer, String key, Map<String, Object> yamlData) throws SchemaException {
         boolean foundValid = false;
         SchemaException cause = null;
         List<AbstractBaseType> valueTypes = this.getValueTypes();
         for (int i = 0; i < valueTypes.size() && !foundValid; i++) {
             AbstractBaseType valueType = valueTypes.get( i );
             try {
-                valueType.validate( schema, yamlData.get( key ) );
+                valueType.validate( indexer, yamlData.get( key ) );
                 foundValid = true;
             } catch (SchemaException e) {
                 cause = e;

@@ -12,4 +12,8 @@ services:
     singleton: true 
     config:
       aaa: 111
-      bbb: 222 
+      bbb: 222
+  Service5:
+    ham: gravy
+    corn: dog
+  Service6: 

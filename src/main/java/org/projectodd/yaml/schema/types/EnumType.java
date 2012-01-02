@@ -3,8 +3,8 @@ package org.projectodd.yaml.schema.types;
 import java.util.List;
 import java.util.Map;
 
-import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
+import org.projectodd.yaml.schema.metadata.DependencyIndexer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +36,7 @@ public class EnumType extends AbstractBaseType {
     }
 
     @Override
-    public void validateType(Schema schema, Object value) throws SchemaException {
+    public void validateType(DependencyIndexer indexer, Object value) throws SchemaException {
         log.debug( "Validating value " + value + " against enum values " + values );
         boolean found = false;
         for (int i = 0; i < values.size() && !found; i++) {

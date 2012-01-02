@@ -4,7 +4,6 @@ import static org.projectodd.yaml.schema.types.TypeUtils.asTypedMap;
 
 import java.util.Map;
 
-import org.projectodd.yaml.Schema;
 import org.projectodd.yaml.SchemaException;
 
 public class Dependency {
@@ -37,7 +36,7 @@ public class Dependency {
         return this;
     }
 
-    void validate(DependencyIndexer indexer) throws SchemaException {
+    public void validate(DependencyIndexer indexer) throws SchemaException {
         boolean found = indexer.isNodeDefined( value );
         if (!found && type == DependencyType.REQUIRES) {
             throw new SchemaException( "Could not find dependency " + value + ", which is required " +
@@ -47,10 +46,6 @@ public class Dependency {
             throw new SchemaException( "Found dependency " + value + ", which field "
                     + fieldName + " mutually excludes." );
         }
-    }
-
-    public void validate(Schema schema) throws SchemaException {
-        validate( schema.getDependencyIndexer() );
     }
 
     public DependencyType getType() {

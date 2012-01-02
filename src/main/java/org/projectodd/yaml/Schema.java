@@ -14,13 +14,21 @@ public class Schema {
 
     private AbstractBaseType root = new MapType();
 
-    private DependencyIndexer indexer = new DependencyIndexer();
+    private DependencyIndexer indexer;
 
     public Schema(InputStream stream) throws SchemaException {
+        this( stream, true );
+    }
+
+    public Schema(InputStream stream, boolean validatingDeps) throws SchemaException {
         root = initializeSchema( new Yaml().load( stream ) );
     }
 
     public Schema(String schemaFile) throws SchemaException {
+        this( schemaFile, true );
+    }
+
+    public Schema(String schemaFile, boolean validatingDeps) throws SchemaException {
         try {
             FileInputStream fis = new FileInputStream( schemaFile );
             root = initializeSchema( new Yaml().load( fis ) );
@@ -33,27 +41,29 @@ public class Schema {
         return TypeFactory.instance().buildRoot( yamlData );
     }
 
-    public void validate(Object yamlObject) throws SchemaException {
+    public void validate(Object yamlObject, boolean verifyDependencies) throws SchemaException {
+        indexer = new DependencyIndexer();
+        indexer.setVerifyingDependencies( verifyDependencies );
         indexer.scan( yamlObject );
-        root.validate( this, yamlObject );
+        root.validate( indexer, yamlObject );
     }
 
     public void validate(InputStream stream) throws SchemaException {
-        validate( new Yaml().load( stream ) );
+        validate( new Yaml().load( stream ), true );
+    }
+    
+    public void validate(InputStream stream, boolean verifyDependencies) throws SchemaException {
+        validate( new Yaml().load( stream ), verifyDependencies );
     }
 
-    public void validate(String fileName) throws SchemaException {
+    public void validate(String fileName, boolean verifyDependencies) throws SchemaException {
         try {
-            validate( new FileInputStream( fileName ) );
+            validate( new FileInputStream( fileName ), verifyDependencies );
         } catch (FileNotFoundException e) {
             throw new SchemaException( "Could not find file to validate: " + fileName );
         }
     }
-    
-    public DependencyIndexer getDependencyIndexer() {
-        return this.indexer;
-    }
-    
+
     public AbstractBaseType getRoot() {
         return this.root;
     }
