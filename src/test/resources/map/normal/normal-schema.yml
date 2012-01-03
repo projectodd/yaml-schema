@@ -1,13 +1,16 @@
 +alice: 
   type: enum
+  description: This is the alice field.
   values: [1.8, 1.9]
 -bob:
   type: map
+  description: This is the bob field.
   +one: string
   +two: string
   -three: string
 charlie:
     required: true
+    description: This is the charlie field.
     one:
       arbitrary: true
       type: map

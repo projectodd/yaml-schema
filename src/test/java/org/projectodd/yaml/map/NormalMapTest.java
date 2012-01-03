@@ -25,6 +25,8 @@ public class NormalMapTest extends AbstractBaseTest {
         EnumType alice = (EnumType) children.get( "alice" );
         assertTrue( alice.isRequired() );
         assertEquals( "alice", alice.getName() );
+        assertEquals( "This is the alice field.", alice.getDescription() );
+        
         MapType bob = (MapType) children.get( "bob" );
         assertFalse( bob.isRequired() );
         assertEquals( "bob", bob.getName() );
@@ -39,6 +41,7 @@ public class NormalMapTest extends AbstractBaseTest {
         assertTrue( bobKids.get( "three" ) instanceof StringType );
         assertEquals( "three", bobKids.get( "three" ).getName() );
         assertFalse( bobKids.get( "three" ).isRequired() );
+        assertEquals("This is the bob field.", bob.getDescription());
 
         MapType charlie = (MapType) children.get( "charlie" );
         assertTrue( charlie.isRequired() );
@@ -53,6 +56,7 @@ public class NormalMapTest extends AbstractBaseTest {
         assertFalse( ((StringType) charlieKids.get( "two" )).isRequired() );
         assertTrue( charlieKids.get( "three" ) instanceof StringType );
         assertTrue( ((StringType) charlieKids.get( "three" )).isRequired() );
+        assertEquals("This is the charlie field.", charlie.getDescription());
 
         schema.validate( loadResource( "doc.yml" ) );
     }

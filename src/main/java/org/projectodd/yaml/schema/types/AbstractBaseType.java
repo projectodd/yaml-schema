@@ -20,6 +20,8 @@ public abstract class AbstractBaseType {
     private static final String REQUIRED_PREFIX = "+";
 
     private String name;
+    
+    private String description = "";
 
     private boolean required = true;
 
@@ -64,6 +66,10 @@ public abstract class AbstractBaseType {
                 required = Boolean.valueOf( yamlMap.get( "required" ).toString() );
                 yamlMap.remove( "required" );
             }
+            if (yamlMap.containsKey( "description" )) {
+                description = (String) yamlMap.get( "description" );
+                yamlMap.remove( "description" );
+            }
             initializeDependencies( yamlMap );
         }
         log.debugf( "initialized %s field %s.", (required ? "required" : "optional"), this.name );
@@ -90,6 +96,10 @@ public abstract class AbstractBaseType {
         else {
             log.tracef( "No dependencies for field %s.", getName() );
         }
+    }
+    
+    public String getDescription() {
+        return description;
     }
 
     public boolean isRequired() {
