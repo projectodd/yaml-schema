@@ -6,3 +6,15 @@
   +one: string
   +two: string
   -three: string
+charlie:
+    required: true
+    one:
+      arbitrary: true
+      type: map
+      required: true
+    two:
+      type: string
+      required: false
+    three:
+      type: string
+      required: true

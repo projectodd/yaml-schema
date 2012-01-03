@@ -62,6 +62,7 @@ public abstract class AbstractBaseType {
             Map<String, Object> yamlMap = asTypedMap( yamlData );
             if (yamlMap.containsKey( "required" )) {
                 required = Boolean.valueOf( yamlMap.get( "required" ).toString() );
+                yamlMap.remove( "required" );
             }
             initializeDependencies( yamlMap );
         }

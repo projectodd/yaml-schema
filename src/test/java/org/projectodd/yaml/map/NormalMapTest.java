@@ -21,7 +21,7 @@ public class NormalMapTest extends AbstractBaseTest {
         Schema schema = new Schema( loadResource( "normal-schema.yml" ) );
         MapType root = (MapType) schema.getRoot();
         Map<String, AbstractBaseType> children = root.getChildren();
-        assertEquals( 2, children.size() );
+        assertEquals( 3, children.size() );
         EnumType alice = (EnumType) children.get( "alice" );
         assertTrue( alice.isRequired() );
         assertEquals( "alice", alice.getName() );
@@ -39,6 +39,21 @@ public class NormalMapTest extends AbstractBaseTest {
         assertTrue( bobKids.get( "three" ) instanceof StringType );
         assertEquals( "three", bobKids.get( "three" ).getName() );
         assertFalse( bobKids.get( "three" ).isRequired() );
+
+        MapType charlie = (MapType) children.get( "charlie" );
+        assertTrue( charlie.isRequired() );
+        assertFalse( charlie.isAllowingArbitraryKeys() );
+        Map<String, AbstractBaseType> charlieKids = charlie.getChildren();
+        assertEquals( 3, charlieKids.size() );
+        assertTrue( charlieKids.get( "one" ) instanceof MapType );
+        assertTrue( ((MapType) charlieKids.get( "one" )).isAllowingArbitraryKeys() );
+        assertTrue( ((MapType) charlieKids.get( "one" )).isRequired() );
+        assertEquals( 0, ((MapType) charlieKids.get( "one" )).getChildren().size() );
+        assertTrue( charlieKids.get( "two" ) instanceof StringType );
+        assertFalse( ((StringType) charlieKids.get( "two" )).isRequired() );
+        assertTrue( charlieKids.get( "three" ) instanceof StringType );
+        assertTrue( ((StringType) charlieKids.get( "three" )).isRequired() );
+
         schema.validate( loadResource( "doc.yml" ) );
     }
 

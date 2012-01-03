@@ -2,3 +2,8 @@ alice: 1.8
 bob:
   one: hello
   two: goodbye
+charlie:
+  one:
+    foo: bar
+    baz: pants
+  three: abc
