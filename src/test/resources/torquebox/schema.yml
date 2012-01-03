@@ -1,17 +1,31 @@
 -application:
-  -root: string
-  -env: string
-  -RAILS_ROOT: string
-  -RAILS_ENV: string
+  description: Subsection containing application specific settings.
+  -root: 
+    type: string
+    description: The (fully qualified) root for your application.
+  -env:
+    type: string
+    description: The environment (development, testing, etc) that you want to run your
+                 app in.
+  -RAILS_ROOT:
+    type: string
+    description: The root for your Rails application. Similar to root field.
+  -RAILS_ENV:
+    type: string
+    description: The environment for your Rails application. Similar to env field.
 -auth:
   arbitrary: true
   value-types:
     string:
+      description: The name of the authentication domain.
       required: false
     map:
-      -domain: string
+      -domain: 
+        type: string
+        description: The name of the authentication domain. 
       -credentials:
         arbitrary: true
+        description: The credential for this domain.
 -environment:
   arbitrary: true
 -jobs:
