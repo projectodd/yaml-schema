@@ -5,6 +5,18 @@
 	<artifactId>yaml-schema</artifactId>
 	<version>0.1-SNAPSHOT</version>
 
+  <description>
+    YAML schema library for Java
+  </description>
+
+  <developers>
+    <developer>
+      <id>dobozysaurus</id>
+      <name>Mike Dobozy</name>
+      <email>dobozysaurus@gmail.com</email>
+    </developer>
+  </developers>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.yaml</groupId>
