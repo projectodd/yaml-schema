@@ -39,6 +39,9 @@ public class StringType extends AbstractBaseType {
             throw new SchemaException( "String field " + getName() + " only accepts scalar values." );
         }
         if (regex != null) {
+            if (!(value instanceof String)) {
+                value = value.toString();
+            }
             if (!regex.matcher( (String) value ).matches()) {
                 throw new SchemaException( "Value " + value + " for field " + getName() +
                         " does not match regular expression " + regex.pattern() );

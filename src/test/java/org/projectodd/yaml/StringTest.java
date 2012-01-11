@@ -24,6 +24,18 @@ public class StringTest extends AbstractBaseTest {
         assertEquals( "foo", foo.getName() );
         schema.validate( loadResource( "valid-doc.yml" ) );
     }
+    
+    @Test
+    public void testNonString() throws SchemaException {
+        Schema schema = new Schema( loadResource( "basic-schema.yml" ) );
+        MapType root = (MapType) schema.getRoot();
+        Map<String, AbstractBaseType> children = root.getChildren();
+        assertEquals( 1, children.size() );
+        StringType foo = (StringType) children.get( "foo" );
+        assertTrue( foo.isRequired() );
+        assertEquals( "foo", foo.getName() );
+        schema.validate( loadResource( "non-string-doc.yml" ) );
+    }
 
     @Test
     public void testComplexInvalidDoc() throws Exception {
