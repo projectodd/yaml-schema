@@ -16,9 +16,9 @@
   </description>
 
   <scm>
-    <connection>scm:git:git://github.com/projectodd/jboss-polyglot-release.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/projectodd/jboss-polyglot-release.git</developerConnection>
-    <url>http://github.com/projectodd/jboss-polyglot-release</url>
+    <connection>scm:git:git://github.com/projectodd/yaml-schema-release.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/projectodd/yaml-schema-release.git</developerConnection>
+    <url>http://github.com/projectodd/yaml-schema-release</url>
   </scm>
 
   <developers>
