@@ -1,6 +1,6 @@
 package org.projectodd.yaml;
 
-public class TestUtils {
+public abstract class TestUtils {
 
     public static String join(String[] pieces, String delim) {
         StringBuffer buffer = new StringBuffer( "" );
